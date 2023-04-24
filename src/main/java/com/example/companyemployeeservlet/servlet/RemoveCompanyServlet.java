@@ -16,6 +16,6 @@ public class RemoveCompanyServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         companyManager.removeById(id);
-        resp.sendRedirect("companies");
+        resp.sendRedirect("/companies");
     }
 }
