@@ -7,9 +7,9 @@
 </head>
 <% List<Company> companies = (List<Company>) request.getAttribute("companies");%>
 
-<body>
+<body style="background-color: snow">
 <a href="/">Back</a>
-<H2>Companies</H2><a href="/createCompany">Create company</a>
+<H2 style="font-family: 'Arial Black'">Companies</H2><a href="/createCompany">Create company</a>
 <table border="1">
     <tr>
         <th>id</th>

@@ -7,7 +7,7 @@
 </head>
 <% List<Employee> employees = (List<Employee>) request.getAttribute("employees");%>
 
-<body>
+<body style="background-color: snow">
 <a href="/">Back</a>
 <H2>Employees</H2><a href="/createEmployee">Create company</a>
 <table border="1">

@@ -4,8 +4,8 @@
 <head>
     <title>JSP - Hello World</title>
 </head>
-<body>
-<h1>Company Employee
+<body style="background-color: snow">
+<h1 style="font-family: 'Arial Black'">Company Employee
 </h1>
 <br/>
 <a href="/companies">Companies</a> |
