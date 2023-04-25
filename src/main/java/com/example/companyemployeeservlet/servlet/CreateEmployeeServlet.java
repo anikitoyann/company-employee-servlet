@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,7 +23,12 @@ public class CreateEmployeeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        List<Company> companies = companyManager.getAll();
+        List<Integer> companyIds = new ArrayList<>();
+        for (Company company : companies) {
+            companyIds.add(company.getId());
+        }
+        req.setAttribute("companyIds",companyIds);
         req.getRequestDispatcher("WEB-INF/createEmployee.jsp").forward(req, resp);
     }
 
