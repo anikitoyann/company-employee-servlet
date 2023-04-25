@@ -2,6 +2,7 @@ package com.example.companyemployeeservlet.servlet;
 
 import com.example.companyemployeeservlet.manager.CompanyManager;
 import com.example.companyemployeeservlet.manager.EmployeeManager;
+import com.example.companyemployeeservlet.model.Company;
 import com.example.companyemployeeservlet.model.Employee;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @WebServlet("/updateEmployee")
@@ -19,6 +22,12 @@ public class UpdateEmployeeServer extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Company> companies = companyManager.getAll();
+        List<Integer> companyIds = new ArrayList<>();
+        for (Company company : companies) {
+            companyIds.add(company.getId());
+        }
+        req.setAttribute("companyIds",companyIds);
         int id = Integer.parseInt(req.getParameter("id"));
         Employee employee = employeeManager.getById(id);
         req.setAttribute("employee",employee);

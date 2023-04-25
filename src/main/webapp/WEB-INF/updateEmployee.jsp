@@ -1,5 +1,6 @@
 <%@ page import="com.example.companyemployeeservlet.model.Company" %>
 <%@ page import="com.example.companyemployeeservlet.model.Employee" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,6 +8,7 @@
 </head>
 <body>
 <% Employee employee = (Employee) request.getAttribute("employee");%>
+<%List<Integer> companies = (List<Integer>) request.getAttribute("companyIds"); %>
 <a href="/employees">Back</a>
 <h2>Update Employee</h2>
 <form action="/updateEmployee" method="post" >
@@ -14,7 +16,12 @@
     name<input type="text" name="name"value="<%=employee.getName()%>"><br>
     surname<input type="text" name="surname"value="<%=employee.getSurname()%>"><br>
     email<input type="text" name="email" value="<%=employee.getEmail()%>"><br>
-    company_id<input type="text"name="company_id"value="<%=employee.getCompany().getId()%>">
+    company_id:
+    <select name="company_id">
+        <% for (Integer company : companies) { %>
+        <option value="<%=company%>"><%=company%></option>
+        <% }%>
+    </select>
     <input type="submit" value="Update">
 </form>
 
