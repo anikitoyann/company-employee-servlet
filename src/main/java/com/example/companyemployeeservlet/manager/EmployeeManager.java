@@ -5,10 +5,7 @@ import com.example.companyemployeeservlet.db.DBConnectionProvider;
 import com.example.companyemployeeservlet.model.Employee;
 
 import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,9 +87,14 @@ public class EmployeeManager {
         return employee;
     }
     public void update(Employee employee) {
-        String sql = "UPDATE employee SET name='%s',surname='%s',email='%s' WHERE id=%d";
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(String.format(sql, employee.getName(), employee.getSurname(), employee.getEmail(),employee.getId()));
+        String sql = "UPDATE employee SET name=?,surname=?,email=?,company_id=? WHERE id=?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1,employee.getName());
+            statement.setString(2, employee.getSurname());
+            statement.setString(3,employee.getEmail());
+            statement.setInt(4,employee.getCompany().getId());
+            statement.setInt(5,employee.getId());
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

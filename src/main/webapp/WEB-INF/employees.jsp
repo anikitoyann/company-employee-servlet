@@ -1,11 +1,15 @@
 <%@ page import="com.example.companyemployeeservlet.model.Employee" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.example.companyemployeeservlet.model.User" %>
+<%@ page import="com.example.companyemployeeservlet.model.UserType" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Employees</title>
 </head>
-<% List<Employee> employees = (List<Employee>) request.getAttribute("employees");%>
+<% List<Employee> employees = (List<Employee>) request.getAttribute("employees");
+    User user = (User) session.getAttribute("user");
+%>
 
 <body style="background-color: snow">
 <a href="/">Back</a>
@@ -16,8 +20,10 @@
         <th>name</th>
         <th>surname</th>
         <th>email</th>
-        <th>company_id</th>
+        <th>company name</th>
+        <%if (user.getUserType()== UserType.ADMIN){%>
         <th>action</th>
+        <%}%>
     </tr>
     <% if (employees != null && !employees.isEmpty()) { %>
     <%
@@ -27,9 +33,12 @@
         <td><%=employee.getName()%></td>
         <td><%=employee.getSurname()%></td>
         <td><%=employee.getEmail()%></td>
-        <td><%=employee.getCompany().getId()%></td>
+        <td><%=employee.getCompany().getName()%></td>
+        <%if (user.getUserType()== UserType.ADMIN){%>
+
         <td><a href="/removeEmployee?id=<%=employee.getId()%>">delete</a>
             / <a href="updateEmployee?id=<%=employee.getId()%>"> update</a></td>
+        <%}%>
     </tr>
     <%} %>
     <%} %>

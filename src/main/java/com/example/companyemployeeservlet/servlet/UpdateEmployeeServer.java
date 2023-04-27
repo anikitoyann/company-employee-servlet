@@ -23,11 +23,7 @@ public class UpdateEmployeeServer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Company> companies = companyManager.getAll();
-        List<Integer> companyIds = new ArrayList<>();
-        for (Company company : companies) {
-            companyIds.add(company.getId());
-        }
-        req.setAttribute("companyIds",companyIds);
+        req.setAttribute("companies",companies);
         int id = Integer.parseInt(req.getParameter("id"));
         Employee employee = employeeManager.getById(id);
         req.setAttribute("employee",employee);
@@ -41,13 +37,13 @@ public class UpdateEmployeeServer extends HttpServlet {
         String name = req.getParameter("name");
         String surname = req.getParameter("surname");
         String email = req.getParameter("email");
-        int company_id = Integer.parseInt(req.getParameter("company_id"));
+        int companyid = Integer.parseInt(req.getParameter("company_id"));
         Employee employee=new Employee();
         employee.setId(id);
         employee.setName(name);
         employee.setSurname(surname);
         employee.setEmail(email);
-        employee.setCompany(companyManager.getById(company_id));
+        employee.setCompany(companyManager.getById(companyid));
        employeeManager.update(employee);
         resp.sendRedirect("/employees");
     }

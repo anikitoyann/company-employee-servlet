@@ -24,11 +24,7 @@ public class CreateEmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Company> companies = companyManager.getAll();
-        List<Integer> companyIds = new ArrayList<>();
-        for (Company company : companies) {
-            companyIds.add(company.getId());
-        }
-        req.setAttribute("companyIds",companyIds);
+        req.setAttribute("companies", companies);
         req.getRequestDispatcher("WEB-INF/createEmployee.jsp").forward(req, resp);
     }
 
@@ -38,11 +34,12 @@ public class CreateEmployeeServlet extends HttpServlet {
         String surname = req.getParameter("surname");
         String email = req.getParameter("email");
         int companyId = Integer.parseInt(req.getParameter("company_id"));
-        Employee employee = new Employee();
-        employee.setName(name);
-        employee.setSurname(surname);
-        employee.setEmail(email);
-        employee.setCompany(companyManager.getById(companyId));
+        Employee employee = Employee.builder()
+                .name(name)
+                .surname(surname)
+                .email(email)
+                .company(companyManager.getById(companyId))
+                .build();
         employeeManager.save(employee);
         resp.sendRedirect("/employees");
     }

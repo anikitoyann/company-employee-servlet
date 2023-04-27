@@ -7,9 +7,9 @@
     <title>Update Employee</title>
 </head>
 <body>
-<% Employee employee = (Employee) request.getAttribute("employee");%>
-<%List<Integer> companies = (List<Integer>) request.getAttribute("companyIds"); %>
 <a href="/employees">Back</a>
+<% Employee employee = (Employee) request.getAttribute("employee");%>
+<%List<Company> companies = (List<Company>) request.getAttribute("companies"); %>
 <h2>Update Employee</h2>
 <form action="/updateEmployee" method="post" >
     <input name="id" type="hidden"value="<%=employee.getId()%>">
@@ -18,12 +18,11 @@
     email<input type="text" name="email" value="<%=employee.getEmail()%>"><br>
     company_id:
     <select name="company_id">
-        <% for (Integer company : companies) { %>
-        <option value="<%=company%>"><%=company%></option>
+        <% for (Company company : companies) { %>
+        <option  value="<%=company.getId()%>"><%=company.getName()%></option>
         <% }%>
     </select>
     <input type="submit" value="Update">
 </form>
-
 </body>
 </html>
